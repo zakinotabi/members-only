@@ -6,140 +6,133 @@
     <title>Tweet Page</title>
   </head>
   <body>
-    <!-- ===================== HEADER ===================== -->
-    <header>
-      <h1>Tweet Page</h1>
-
-      <nav aria-label="Account">
-        <!-- These buttons open the dialogs using pure HTML (no JS) -->
-        <button type="button" command="show-modal" commandfor="signin-dialog">Sign in</button>
-        <button type="button" command="show-modal" commandfor="signup-dialog">Sign up</button>
-      </nav>
-    </header>
-
-    <!-- ===================== MAIN ===================== -->
     <main>
-      <!-- ---------- Current user ---------- -->
-      <section id="current-user" aria-label="Current user">
-        <p>
-          <strong>John Doe</strong>
-          <span>@johndoe</span>
-        </p>
-        <form action="/signout" method="post">
-          <button type="submit">Sign out</button>
-        </form>
-      </section>
+      <!-- ============= NAVBAR MODULE ============== -->
+     <%- include('navbar', { user: activeUser }) %>
 
-      <!-- ---------- Post composer ---------- -->
-      <section aria-labelledby="composer-heading">
-        <h2 id="composer-heading">New post</h2>
+<!-- ===================== BODY MODULE ===================== -->
+<main>
 
-        <form action="/posts" method="post">
-          <label for="post-content">What's on your mind?</label>
-          <textarea id="post-content" name="content" rows="4" maxlength="280" required placeholder="Write your tweet..."></textarea>
-          <p><small>Max 280 characters.</small></p>
-          <button type="submit">Post</button>
-        </form>
-      </section>
+  <!-- ---------- Post composer ---------- -->
 
-      <!-- ---------- Feed ---------- -->
-      <section aria-labelledby="feed-heading">
-        <h2 id="feed-heading">Posts</h2>
+  <section aria-labelledby="composer-heading">
+  <% if (activeUser) { %>
 
-        <ul>
-          <!-- ----- Post 1 ----- -->
-          <li>
-            <article>
-              <header>
-                <p>
-                  <strong>John Doe</strong>
-                  <span>@johndoe</span>
-                  &middot;
-                  <time datetime="2025-01-01T10:00">Jan 1, 2025 10:00</time>
-                </p>
-              </header>
+    <h2 id="composer-heading">New post</h2>
 
-              <p>This is my first tweet!</p>
+    <form action="/posts" method="post">
+      <label for="post-content">What's on your mind?</label>
+      <textarea id="post-content" name="postContent" rows="4" maxlength="280" required
+                placeholder="Write your tweet..."></textarea>
+      <p><small>Max 280 characters.</small></p>
+      <button type="submit">Post</button>
+    </form>
+    
+    <% } else { %>
+      
+      <div>make a new post<span>sign-in</span></div>
+      
+    <% } %>
+      
+    </section>
 
-              <footer>
-                <button type="button">Edit</button>
-                <button type="button">Delete</button>
-              </footer>
-            </article>
-          </li>
 
-          <!-- ----- Post 2 ----- -->
-          <li>
-            <article>
-              <header>
-                <p>
-                  <strong>Jane Smith</strong>
-                  <span>@janesmith</span>
-                  &middot;
-                  <time datetime="2025-01-01T11:30">Jan 1, 2025 11:30</time>
-                </p>
-              </header>
 
-              <p>Hello world, this is a second post.</p>
+  <!-- ---------- Feed ---------- -->
+<section aria-labelledby="feed-heading">
+  <h2 id="feed-heading">Posts</h2>
 
-              <footer>
-                <button type="button">Edit</button>
-                <button type="button">Delete</button>
-              </footer>
-            </article>
-          </li>
-        </ul>
-      </section>
-    </main>
+  <ul>
+    <% allPosts.forEach(post => { %>
+      <li>
+        <article>
+          <header>
+            <p>
+              <strong><%= allUsers[post.user]?.name %></strong>
+              <span>@<%= allUsers[post.user]?.username %></span>
+              <!-- &middot;
+              <time datetime="<%= //post.datetime %>"><%=// post.formattedDate %></time> -->
+            </p>
+          </header>
 
-    <!-- ===================== SIGN IN DIALOG ===================== -->
-    <dialog id="signin-dialog" aria-labelledby="signin-title">
-      <form action="/signin" method="post">
-        <h2 id="signin-title">Sign in</h2>
+          <p><%= post.content %></p>
 
-        <p>
-          <label for="signin-username">Username</label><br />
-          <input id="signin-username" name="username" type="text" autocomplete="username" required />
-        </p>
+          <footer>
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
+          </footer>
+        </article>
+      </li>
+    <% }) %>
+  </ul>
+</section>
 
-        <p>
-          <label for="signin-password">Password</label><br />
-          <input id="signin-password" name="password" type="password" autocomplete="current-password" required />
-        </p>
+</main>
 
-        <button type="submit">Sign in</button>
-        <button type="button" command="close" commandfor="signin-dialog">Cancel</button>
-      </form>
-    </dialog>
+<!-- ===================== SIGN IN DIALOG ===================== -->
+<dialog id="login-dialog" aria-labelledby="login-title" <%= activeModal === 'login-dialog' ? 'open' : '' %>>
+  <form action="/login" method="post">
+    <h2 id="login-title">Sign in</h2>
 
-    <!-- ===================== SIGN UP DIALOG ===================== -->
-    <dialog id="signup-dialog" aria-labelledby="signup-title">
-      <form action="/signup" method="post">
-        <h2 id="signup-title">Create an account</h2>
+        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+            <div class="error-message">
+                <%= errorMessage %>
+            </div>
+        <% } %>
 
-        <p>
-          <label for="signup-name">Name</label><br />
-          <input id="signup-name" name="name" type="text" autocomplete="name" minlength="2" required />
-        </p>
 
-        <p>
-          <label for="signup-username">Username</label><br />
-          <input id="signup-username" name="username" type="text" autocomplete="username" minlength="2" required />
-        </p>
+    <p>
+      <label for="login-username">Username</label><br>
+      <input id="login-username" name="username" type="text"
+             autocomplete="username" required>
+    </p>
 
-        <p>
-          <label for="signup-password">Password</label><br />
-          <input id="signup-password" name="password" type="password" autocomplete="new-password" minlength="8" required />
-        </p>
+    <p>
+      <label for="login-password">Password</label><br>
+      <input id="login-password" name="password" type="password"
+             autocomplete="current-password" required>
+    </p>
 
-        <p>
-          <label for="signup-password-confirm">Confirm password</label><br />
-          <input id="signup-password-confirm" name="password_confirm" type="password" autocomplete="new-password" minlength="8" required />
-        </p>
+    <button type="submit">Sign in</button>
+    <button type="button" command="close" commandfor="login-dialog">Cancel</button>
+  </form>
+</dialog>
 
-        <button type="submit">Sign up</button>
-        <button type="button" command="close" commandfor="signup-dialog">Cancel</button>
-      </form>
-    </dialog>
+<!-- ===================== SIGN UP DIALOG ===================== -->
+<dialog id="signup-dialog" aria-labelledby="signup-title">
+  <form action="/signup" method="post">
+    <h2 id="signup-title">Create an account</h2>
+
+
+    <p>
+      <label for="signup-name">Full name</label><br>
+      <input id="signup-name" name="name" type="text"
+             autocomplete="name" required>
+    </p>
+
+    <p>
+      <label for="signup-username">Username</label><br>
+      <input id="signup-username" name="username" type="text"
+             autocomplete="username" required>
+    </p>
+
+
+    <p>
+      <label for="signup-password">Password</label><br>
+      <input id="signup-password" name="password" type="password"
+             autocomplete="new-password" minlength="8" required>
+    </p>
+
+    <p>
+      <label for="signup-password-confirm">Confirm password</label><br>
+      <input id="signup-password-confirm" name="password_confirm" type="password"
+             autocomplete="new-password" minlength="8" required>
+    </p>
+
+    <button type="submit">Sign up</button>
+    <button type="button" command="close" commandfor="signup-dialog">Cancel</button>
+  </form>
+</dialog>
   </body>
+
 </html>

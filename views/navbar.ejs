@@ -1,0 +1,27 @@
+<header>
+  <h1>Tweet Page</h1>
+
+  <nav aria-label="Account">
+  <% if (user) { %>
+
+    <div id="user-info">
+      <p>
+        Welcome <strong><%= user.name %></strong>
+        <span>@<%= user.username %></span>
+      </p>
+      <form action="/logout" method="post">
+        <button type="submit">Log out</button>
+      </form>
+    </div>
+
+  <% } else { %>
+
+    <div id="auth-buttons">
+      <button type="button" command="show-modal" commandfor="login-dialog">Sign in</button>
+      <button type="button" command="show-modal" commandfor="signup-dialog">Sign up</button>
+    </div>
+
+  <% } %>
+
+  </nav>
+</header>
