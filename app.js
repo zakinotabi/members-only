@@ -4,6 +4,8 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const path = require('path');
 const homeRouter = require('./routes/homeRouter');
+const userRouter = require('./routes/userRouter');
+const postsRouter = require('./routes/postsRouter');
 const session = require('express-session');
 const passport = require('./config/passport');
 
@@ -26,11 +28,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use((req, res, next) => {
-//   res.locals.currentUser = req.user;
-//   next();
-// });
-
+app.use('/user', userRouter);
+app.use('/posts', postsRouter);
 app.use('/', homeRouter);
 
 app.listen(PORT, () => {

@@ -20,7 +20,7 @@
 
     <h2 id="composer-heading">New post</h2>
 
-    <form action="/posts" method="post">
+    <form action="/posts/new" method="post">
       <label for="post-content">What's on your mind?</label>
       <textarea id="post-content" name="postContent" rows="4" maxlength="280" required
                 placeholder="Write your tweet..."></textarea>
@@ -37,8 +37,7 @@
     </section>
 
 
-
-  <!-- ---------- Feed ---------- -->
+<!-- ---------- Feed ---------- -->
 <section aria-labelledby="feed-heading">
   <h2 id="feed-heading">Posts</h2>
 
@@ -48,35 +47,71 @@
         <article>
           <header>
             <p>
-              <strong><%= allUsers[post.user]?.name %></strong>
-              <span>@<%= allUsers[post.user]?.username %></span>
-              <!-- &middot;
-              <time datetime="<%= //post.datetime %>"><%=// post.formattedDate %></time> -->
+              <% allUsers.forEach(user => { %>
+                <% if (user.id === post.user_id) { %>
+                  <img src="https://api.dicebear.com/10.x/marbles/svg?seed=<%= user.username %>" alt="User Avatar" width="20" />
+                  <strong><%= user.name %></strong>
+                  <span>@<%= user.username %></span>
+                <% } %>
+              <% }) %>
             </p>
           </header>
 
           <p><%= post.content %></p>
 
           <footer>
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
+            <% if (activeUser && activeUser.id == post.user_id) { %>
+              <button type="button" popovertarget="edit-<%= post.id %>">Edit</button>
+              <button type="button" popovertarget="delete-<%= post.id %>">Delete</button>
+            <% } %>
           </footer>
         </article>
+
+        <!-- Edit popover -->
+        <div id="edit-<%= post.id %>" popover>
+          <form method="post" action="/posts/edit">
+            <h2>Edit post</h2>
+
+            <input type="hidden" name="postId" value="<%= post.id %>" />
+
+            <label for="edit-content-<%= post.id %>">Content</label>
+            <textarea id="edit-content-<%= post.id %>" name="content" rows="5" required><%= post.content %></textarea>
+
+            <menu>
+              <button type="button" popovertarget="edit-<%= post.id %>" popovertargetaction="hide">Cancel</button>
+              <button type="submit">Save</button>
+            </menu>
+          </form>
+        </div>
+
+        <!-- Delete confirmation popover -->
+        <div id="delete-<%= post.id %>" popover>
+          <form method="post" action="/posts/delete">
+            <h2>Delete this post?</h2>
+            <p>This action can't be undone.</p>
+
+            <input type="hidden" name="postId" value="<%= post.id %>" />
+
+            <menu>
+              <button type="button" popovertarget="delete-<%= post.id %>" popovertargetaction="hide">Cancel</button>
+              <button type="submit">Delete</button>
+            </menu>
+          </form>
+        </div>
+
       </li>
     <% }) %>
   </ul>
 </section>
 
-</main>
-
-<!-- ===================== SIGN IN DIALOG ===================== -->
+<!-- ===================== LOG IN DIALOG ===================== -->
 <dialog id="login-dialog" aria-labelledby="login-title" <%= activeModal === 'login-dialog' ? 'open' : '' %>>
-  <form action="/login" method="post">
-    <h2 id="login-title">Sign in</h2>
+  <form action="/user/login" method="post">
+    <h2 id="login-title">Login</h2>
 
-        <% if (typeof errorMessage !== 'undefined' && errorMessage) { %>
+        <% if (typeof loginErrorMessage !== 'undefined' && loginErrorMessage) { %>
             <div class="error-message">
-                <%= errorMessage %>
+                <%= loginErrorMessage %>
             </div>
         <% } %>
 
@@ -99,8 +134,8 @@
 </dialog>
 
 <!-- ===================== SIGN UP DIALOG ===================== -->
-<dialog id="signup-dialog" aria-labelledby="signup-title">
-  <form action="/signup" method="post">
+<dialog id="signup-dialog" aria-labelledby="signup-title"  <%= activeModal === 'signup-dialog' ? 'open' : '' %>>
+  <form action="/user/signup" method="post">
     <h2 id="signup-title">Create an account</h2>
 
 
@@ -113,20 +148,32 @@
     <p>
       <label for="signup-username">Username</label><br>
       <input id="signup-username" name="username" type="text"
-             autocomplete="username" required>
+             autocomplete="username" minlength="3" required>
+    
+      <% if (signupErrorMessage && signupErrorMessage.username) { %>
+        <div class="error-message"><%= signupErrorMessage.username %></div>
+      <% } %>
     </p>
 
 
     <p>
       <label for="signup-password">Password</label><br>
       <input id="signup-password" name="password" type="password"
-             autocomplete="new-password" minlength="8" required>
+             autocomplete="new-password"  required>
+      
+      <% if (signupErrorMessage && signupErrorMessage.password) { %>
+      <div class="error-message"><%= signupErrorMessage.password %></div>
+      <% } %>
     </p>
 
     <p>
       <label for="signup-password-confirm">Confirm password</label><br>
       <input id="signup-password-confirm" name="password_confirm" type="password"
-             autocomplete="new-password" minlength="8" required>
+             autocomplete="new-password" minlength="5" required>
+
+      <% if (signupErrorMessage && signupErrorMessage.password_confirm) { %>
+      <div class="error-message"><%= signupErrorMessage.password_confirm %></div>
+      <% } %>
     </p>
 
     <button type="submit">Sign up</button>
