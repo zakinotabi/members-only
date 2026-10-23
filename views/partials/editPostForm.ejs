@@ -1,0 +1,15 @@
+<div id="edit-<%= post.id %>" popover>
+  <form method="post" action="/posts/edit">
+    <h2>Edit post</h2>
+
+    <input type="hidden" name="postId" value="<%= post.id %>" />
+
+    <label for="edit-content-<%= post.id %>">Content</label>
+    <textarea id="edit-content-<%= post.id %>" name="content" rows="5" required><%= post.content %></textarea>
+
+    <menu>
+      <button type="button" popovertarget="edit-<%= post.id %>" popovertargetaction="hide">Cancel</button>
+      <button type="submit">Save</button>
+    </menu>
+  </form>
+</div>

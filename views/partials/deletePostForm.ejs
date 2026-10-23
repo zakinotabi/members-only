@@ -1,0 +1,13 @@
+<div id="delete-<%= post.id %>" popover>
+  <form method="post" action="/posts/delete">
+    <h2>Delete this post?</h2>
+    <p>This action can't be undone.</p>
+
+    <input type="hidden" name="postId" value="<%= post.id %>" />
+
+    <menu>
+      <button type="button" popovertarget="delete-<%= post.id %>" popovertargetaction="hide">Cancel</button>
+      <button type="submit">Delete</button>
+    </menu>
+  </form>
+</div>

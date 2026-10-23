@@ -1,0 +1,26 @@
+<dialog id="login-dialog" aria-labelledby="login-title" <%= activeModal === 'login-dialog' ? 'open' : '' %>>
+  <form action="/user/login" method="post">
+    <h2 id="login-title">Login</h2>
+
+    <% if (typeof loginErrorMessage !== 'undefined' && loginErrorMessage) { %>
+      <div class="error-message">
+        <%= loginErrorMessage %>
+      </div>
+    <% } %>
+
+    <p>
+      <label for="login-username">Username</label><br>
+      <input id="login-username" name="username" type="text"
+             autocomplete="username" required>
+    </p>
+
+    <p>
+      <label for="login-password">Password</label><br>
+      <input id="login-password" name="password" type="password"
+             autocomplete="current-password" required>
+    </p>
+
+    <button type="submit">Sign in</button>
+    <button type="button" command="close" commandfor="login-dialog">Cancel</button>
+  </form>
+</dialog>

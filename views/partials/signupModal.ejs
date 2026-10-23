@@ -1,0 +1,44 @@
+<dialog id="signup-dialog" aria-labelledby="signup-title" <%= activeModal === 'signup-dialog' ? 'open' : '' %>>
+  <form action="/user/signup" method="post">
+    <h2 id="signup-title">Create an account</h2>
+
+    <p>
+      <label for="signup-name">Full name</label><br>
+      <input id="signup-name" name="name" type="text"
+             autocomplete="name" required>
+    </p>
+
+    <p>
+      <label for="signup-username">Username</label><br>
+      <input id="signup-username" name="username" type="text"
+             autocomplete="username" minlength="3" required>
+
+      <% if (signupErrorMessage && signupErrorMessage.username) { %>
+        <div class="error-message"><%= signupErrorMessage.username %></div>
+      <% } %>
+    </p>
+
+    <p>
+      <label for="signup-password">Password</label><br>
+      <input id="signup-password" name="password" type="password"
+             autocomplete="new-password" required>
+
+      <% if (signupErrorMessage && signupErrorMessage.password) { %>
+        <div class="error-message"><%= signupErrorMessage.password %></div>
+      <% } %>
+    </p>
+
+    <p>
+      <label for="signup-password-confirm">Confirm password</label><br>
+      <input id="signup-password-confirm" name="password_confirm" type="password"
+             autocomplete="new-password" minlength="5" required>
+
+      <% if (signupErrorMessage && signupErrorMessage.password_confirm) { %>
+        <div class="error-message"><%= signupErrorMessage.password_confirm %></div>
+      <% } %>
+    </p>
+
+    <button type="submit">Sign up</button>
+    <button type="button" command="close" commandfor="signup-dialog">Cancel</button>
+  </form>
+</dialog>

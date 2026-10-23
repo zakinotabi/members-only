@@ -1,0 +1,15 @@
+<section aria-labelledby="composer-heading">
+  <% if (activeUser) { %>
+    <h2 id="composer-heading">New post</h2>
+
+    <form action="/posts/new" method="post">
+      <label for="post-content">What's on your mind?</label>
+      <textarea id="post-content" name="postContent" rows="4" maxlength="280" required
+                placeholder="Write your tweet..."></textarea>
+      <p><small>Max 280 characters.</small></p>
+      <button type="submit">Post</button>
+    </form>
+  <% } else { %>
+    <div>make a new post<span>sign-in</span></div>
+  <% } %>
+</section>
