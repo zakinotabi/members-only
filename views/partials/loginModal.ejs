@@ -1,6 +1,6 @@
-<dialog id="login-dialog" aria-labelledby="login-title" <%= activeModal === 'login-dialog' ? 'open' : '' %>>
-  <form action="/user/login" method="post">
-    <h2 id="login-title">Login</h2>
+<dialog id="login-dialog" class="modal" aria-labelledby="login-title" <%= activeModal === 'login-dialog' ? 'open' : '' %>>
+  <form class="modal-form" action="/user/login" method="post">
+    <h2 id="login-title" class="modal-title">Login</h2>
 
     <% if (typeof loginErrorMessage !== 'undefined' && loginErrorMessage) { %>
       <div class="error-message">
@@ -8,19 +8,21 @@
       </div>
     <% } %>
 
-    <p>
-      <label for="login-username">Username</label><br>
+    <div class="form-field">
+      <label for="login-username">Username</label>
       <input id="login-username" name="username" type="text"
-             autocomplete="username" required>
-    </p>
+             autocomplete="off" required>
+    </div>
 
-    <p>
-      <label for="login-password">Password</label><br>
+    <div class="form-field">
+      <label for="login-password">Password</label>
       <input id="login-password" name="password" type="password"
-             autocomplete="current-password" required>
-    </p>
+             autocomplete="off" required>
+    </div>
 
-    <button type="submit">Sign in</button>
-    <button type="button" command="close" commandfor="login-dialog">Cancel</button>
+    <div class="modal-actions">
+      <button type="button" class="btn btn--ghost" command="close" commandfor="login-dialog">Cancel</button>
+      <button type="submit" class="btn btn--primary">Sign in</button>
+    </div>
   </form>
 </dialog>

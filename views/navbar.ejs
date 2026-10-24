@@ -1,24 +1,25 @@
-<header>
-  <h1>Tweet Page</h1>
+<header class="navbar">
+  <h1 class="navbar-brand">Sticky Note</h1>
 
   <nav aria-label="Account">
   <% if (user) { %>
 
-    <div id="user-info">
-      <p>
-        Welcome <strong><%= user.name %></strong>
-        <span>@<%= user.username %></span>
-      </p>
-      <form action="/user/logout" method="post">
-        <button type="submit">Log out</button>
+    <div class="navbar-user">
+      <div class="navbar-user-info">
+         <img class="post-avatar" src="https://api.dicebear.com/10.x/marbles/svg?seed=<%= user.username %>" alt="User Avatar"  />
+          <strong><%= user.name %></strong>
+        <span class="navbar-username">@<%= user.username %></span>
+      </div>
+      <form class="navbar-logout" action="/user/logout" method="post">
+        <button type="submit" class="btn btn--primary">Log out</button>
       </form>
     </div>
 
   <% } else { %>
 
-    <div id="auth-buttons">
-      <button type="button" command="show-modal" commandfor="login-dialog">Sign in</button>
-      <button type="button" command="show-modal" commandfor="signup-dialog">Sign up</button>
+    <div class="navbar-auth">
+      <button type="button" class="btn btn--primary" command="show-modal" commandfor="login-dialog">Sign in</button>
+      <button type="button" class="btn btn--ghost" command="show-modal" commandfor="signup-dialog">Sign up</button>
     </div>
 
   <% } %>

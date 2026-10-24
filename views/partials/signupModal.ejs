@@ -1,44 +1,46 @@
-<dialog id="signup-dialog" aria-labelledby="signup-title" <%= activeModal === 'signup-dialog' ? 'open' : '' %>>
-  <form action="/user/signup" method="post">
-    <h2 id="signup-title">Create an account</h2>
+<dialog id="signup-dialog" class="modal" aria-labelledby="signup-title" <%= activeModal === 'signup-dialog' ? 'open' : '' %>>
+  <form class="modal-form" action="/user/signup" method="post">
+    <h2 id="signup-title" class="modal-title">Create an account</h2>
 
-    <p>
-      <label for="signup-name">Full name</label><br>
+    <div class="form-field">
+      <label for="signup-name">Name</label>
       <input id="signup-name" name="name" type="text"
              autocomplete="name" required>
-    </p>
+    </div>
 
-    <p>
-      <label for="signup-username">Username</label><br>
+    <div class="form-field">
+      <label for="signup-username">Username</label>
       <input id="signup-username" name="username" type="text"
              autocomplete="username" minlength="3" required>
 
       <% if (signupErrorMessage && signupErrorMessage.username) { %>
         <div class="error-message"><%= signupErrorMessage.username %></div>
       <% } %>
-    </p>
+    </div>
 
-    <p>
-      <label for="signup-password">Password</label><br>
+    <div class="form-field">
+      <label for="signup-password">Password</label>
       <input id="signup-password" name="password" type="password"
              autocomplete="new-password" required>
 
       <% if (signupErrorMessage && signupErrorMessage.password) { %>
         <div class="error-message"><%= signupErrorMessage.password %></div>
       <% } %>
-    </p>
+    </div>
 
-    <p>
-      <label for="signup-password-confirm">Confirm password</label><br>
+    <div class="form-field">
+      <label for="signup-password-confirm">Confirm password</label>
       <input id="signup-password-confirm" name="password_confirm" type="password"
              autocomplete="new-password" minlength="5" required>
 
       <% if (signupErrorMessage && signupErrorMessage.password_confirm) { %>
         <div class="error-message"><%= signupErrorMessage.password_confirm %></div>
       <% } %>
-    </p>
+    </div>
 
-    <button type="submit">Sign up</button>
-    <button type="button" command="close" commandfor="signup-dialog">Cancel</button>
+    <div class="modal-actions">
+      <button type="button" class="btn btn--ghost" command="close" commandfor="signup-dialog">Cancel</button>
+      <button type="submit" class="btn btn--primary">Sign up</button>
+    </div>
   </form>
 </dialog>

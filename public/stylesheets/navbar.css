@@ -1,0 +1,71 @@
+/* 3. navbar */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--gap);
+  padding: 1rem max(1rem, calc((100% - 72rem) / 2));
+  background: color-mix(in srgb, var(--color7) 80%, transparent);
+  backdrop-filter: blur(12px) saturate(1.2);
+  border-bottom: var(--line);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color6);
+}
+
+.navbar-brand::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background: var(--color1);
+}
+
+.navbar-user,
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--gap);
+}
+.navbar-user-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.navbar-user-info > strong {
+  font-size: 1.2rem;
+}
+.navbar-username {
+  font-size: 0.875rem;
+}
+
+.navbar-logout .btn {
+  background: var(--color5);
+  color: var(--color3);
+  border-color: var(--color4);
+}
+.navbar-logout .btn:hover {
+  background: var(--color5);
+  color: var(--color7);
+  border-color: var(--color5);
+}
+
+@media (max-width: 30rem) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

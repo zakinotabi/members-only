@@ -1,15 +1,15 @@
-<section aria-labelledby="composer-heading">
+<section id="composer" class="composer" aria-labelledby="composer-heading">
   <% if (activeUser) { %>
-    <h2 id="composer-heading">New post</h2>
+    <h2 id="composer-heading" class="composer-title">New post</h2>
 
-    <form action="/posts/new" method="post">
-      <label for="post-content">What's on your mind?</label>
-      <textarea id="post-content" name="postContent" rows="4" maxlength="280" required
-                placeholder="Write your tweet..."></textarea>
-      <p><small>Max 280 characters.</small></p>
-      <button type="submit">Post</button>
+    <form class="composer-form" action="/posts/new" method="post">
+      <label class="composer-label" for="post-content">What's on your mind?</label>
+      <textarea id="post-content" class="composer-textarea" name="postContent" rows="4" maxlength="280" required
+                placeholder="Write your note..."></textarea>
+      <p class="composer-hint"><small>Max 280 characters.</small></p>
+      <button type="submit" class="btn btn--primary composer-submit">Post</button>
     </form>
   <% } else { %>
-    <div>make a new post<span>sign-in</span></div>
+    <div class="composer-signin">make a new post<span class="composer-signin-link">sign-in</span></div>
   <% } %>
 </section>

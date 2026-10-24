@@ -1,0 +1,105 @@
+/* 6. modals */
+
+.modal,
+.popover-card {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  height: fit-content;
+  max-height: 90vh;
+  overflow: auto;
+  width: min(25rem, 100% - 2rem);
+  padding: 0;
+  color: var(--color5);
+  background: var(--color8);
+  border: 0;
+  border-top: 3px solid var(--color1);
+  box-shadow: var(--shadow-modal);
+}
+.popover-card {
+  width: min(28rem, 100% - 2rem);
+}
+.popover-card--delete {
+  border-top-color: var(--color2);
+}
+
+.modal[open],
+.popover-card:popover-open {
+  animation: pop 0.35s var(--ease);
+}
+
+.modal[open]:not(:modal) {
+  z-index: 50;
+  box-shadow:
+    0 0 0 100vmax var(--veil),
+    var(--shadow-modal);
+}
+
+.modal::backdrop,
+.popover-card::backdrop {
+  background: var(--veil);
+  backdrop-filter: blur(3px);
+  animation: fade 0.35s ease;
+}
+
+.modal-form,
+.popover-card-form {
+  display: grid;
+  gap: var(--gap);
+  padding: 1.75rem;
+}
+
+.modal-title,
+.popover-card-title {
+  font-size: 1.05rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.modal-title {
+  padding-right: 4rem;
+}
+
+.modal-actions {
+  display: grid;
+  margin-top: 0.5rem;
+}
+.modal-actions .btn--primary {
+  width: 100%;
+  padding: 0.85rem;
+}
+
+.modal-actions .btn--ghost {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.5rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.7rem;
+  border: 0;
+}
+.modal-actions .btn--ghost:hover {
+  background: none;
+  color: var(--color2);
+  opacity: 1;
+}
+
+.popover-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+.popover-card-actions .btn {
+  padding: 0.85rem;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}

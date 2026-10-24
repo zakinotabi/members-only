@@ -14,6 +14,10 @@ async function editPost(req, res) {
   if (!postId || !content) {
     return res.redirect('/');
   }
+  if (req.user.username == 'admin') {
+    await postQueries.editPostAdmin(postId, content);
+    return res.redirect('/');
+  }
 
   await postQueries.editPost(postId, userId, content);
   res.redirect('/');
@@ -24,6 +28,10 @@ async function deletePost(req, res) {
   const userId = req.user.id;
 
   if (!postId) {
+    return res.redirect('/');
+  }
+  if (req.user.username == 'admin') {
+    await postQueries.deletePostAdmin(postId);
     return res.redirect('/');
   }
 

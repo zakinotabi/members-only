@@ -1,0 +1,22 @@
+/* 1. variables */
+
+:root {
+  --color1: #2f9c95;
+  --color2: #664147;
+  --color3: #bff8ce;
+  --color4: #40c9a2;
+  --color5: #2f9c95;
+  --color6: #2e1c19;
+  --color7: #e5f9e0;
+  --color8: #f8ffe5;
+
+  --gap: 1rem;
+  --line: 1px solid color-mix(in srgb, var(--color4) 55%, transparent);
+  --veil: rgb(46 28 25 / 0.45);
+  --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --shadow: 0 1px 2px rgb(46 28 25 / 0.08), 0 2px 6px -2px rgb(46 28 25 / 0.18);
+  --shadow-lift: 0 2px 4px rgb(46 28 25 / 0.08), 0 6px 15px -5px rgba(46, 28, 25, 0.23);
+  --shadow-modal: 0 30px 70px -20px rgb(46 28 25 / 0.6);
+}

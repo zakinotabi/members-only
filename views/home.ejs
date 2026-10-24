@@ -4,59 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tweet Page</title>
+
+    <link rel="stylesheet" href="/stylesheets/variables.css" />
+    <link rel="stylesheet" href="/stylesheets/base.css" />
+    <link rel="stylesheet" href="/stylesheets/navbar.css" />
+    <link rel="stylesheet" href="/stylesheets/composer.css" />
+    <link rel="stylesheet" href="/stylesheets/feed.css" />
+    <link rel="stylesheet" href="/stylesheets/modals.css" />
   </head>
-  <body>
-    <main>
+  <body class="page">
 
-      <!-- ============= NAVBAR MODULE ============== -->
-     <%- include('navbar', { user: activeUser }) %>
+    <!-- ============= NAVBAR MODULE ============== -->
+    <%- include('navbar', { user: activeUser }) %>
 
-    <main>
+    <main id="main-content" class="page-main">
 
-  <!-- ---------- Post composer ---------- -->
-  <%- include('partials/postComposer', { activeUser }) %>
+      <!-- ---------- Post composer ---------- -->
+      <%- include('partials/postComposer', { activeUser }) %>
 
+      <!-- ---------- Feed ---------- -->
+      <section id="feed" class="feed" aria-labelledby="feed-heading">
+        <h2 id="feed-heading" class="feed-title">Posts</h2>
 
-<!-- ---------- Feed ---------- -->
-<section aria-labelledby="feed-heading">
-  <h2 id="feed-heading">Posts</h2>
+        <ul class="feed-grid">
+          <% allPosts.forEach(post => { %>
+            <li class="feed-item">
+              <article class="post">
+                <div class="post-author">
+                  <% allUsers.forEach(user => { %>
+                    <% if (user.id === post.user_id) { %>
+                      
+                      <img class="post-avatar" src="https://api.dicebear.com/10.x/marbles/svg?seed=<%= user.username %>" alt="User Avatar"  />
+                      <div class="post-author-info"><strong class="post-name"><%= user.name %></strong>
+                      <span class="post-username">@<%= user.username %></span></div>
+                    <% } %>
+                  <% }) %>
+                </div>
 
-  <ul>
-    <% allPosts.forEach(post => { %>
-      <li>
-        <article>
-          <header>
-            <p>
-              <% allUsers.forEach(user => { %>
-                <% if (user.id === post.user_id) { %>
-                  <img src="https://api.dicebear.com/10.x/marbles/svg?seed=<%= user.username %>" alt="User Avatar" width="20" />
-                  <strong><%= user.name %></strong>
-                  <span>@<%= user.username %></span>
-                <% } %>
-              <% }) %>
-            </p>
-          </header>
+                <p class="post-content"><%= post.content %></p>
 
-          <p><%= post.content %></p>
+                <footer class="post-actions">
+                  <% if (activeUser && activeUser.id == post.user_id || activeUser && activeUser.username == "admin") { %>
+                    <button type="button" class="btn btn--ghost" popovertarget="edit-post-<%= post.id %>">Edit</button>
+                    <button type="button" class="btn btn--danger" popovertarget="delete-post-<%= post.id %>">Delete</button>
+                  <% } %>
+                </footer>
+              </article>
 
-          <footer>
-            <% if (activeUser && activeUser.id == post.user_id) { %>
-              <button type="button" popovertarget="edit-<%= post.id %>">Edit</button>
-              <button type="button" popovertarget="delete-<%= post.id %>">Delete</button>
-            <% } %>
-          </footer>
-        </article>
-<!-- ============= edit/delete MODULE ============== -->
-        <%- include('partials/editPostForm', { post }) %>
-        <%- include('partials/deletePostForm', { post }) %>
+              <!-- ============= edit/delete MODULE ============== -->
+              <%- include('partials/editPostForm', { post }) %>
+              <%- include('partials/deletePostForm', { post }) %>
+            </li>
+          <% }) %>
+        </ul>
+      </section>
+    </main>
 
-      </li>
-    <% }) %>
-  </ul>
-</section>
-<!-- ============= modals MODULE ============== -->
-<%- include('partials/loginModal', { activeModal, loginErrorMessage }) %>
-<%- include('partials/signupModal', { activeModal, signupErrorMessage }) %>
+    <!-- ============= modals MODULE ============== -->
+    <%- include('partials/loginModal', { activeModal, loginErrorMessage }) %>
+    <%- include('partials/signupModal', { activeModal, signupErrorMessage }) %>
   </body>
-
 </html>

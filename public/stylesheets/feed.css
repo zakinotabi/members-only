@@ -1,0 +1,104 @@
+/* 5. feed */
+
+@property --angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 145deg;
+}
+
+.feed-grid {
+  column-width: 18rem;
+  column-gap: var(--gap);
+}
+
+.feed-item {
+  break-inside: avoid;
+  margin-bottom: var(--gap);
+  animation: rise 0.6s var(--ease) both;
+}
+
+.post {
+  --bg: var(--color3);
+  --fg: var(--color6);
+
+  --tint-sat: 50%;
+  --tint-light: 82%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  padding: 1.15rem;
+  background-color: color-mix(in srgb, var(--color3) 35%, transparent);
+  color: var(--fg);
+  transition:
+    box-shadow 0.35s var(--ease),
+    --angle 0.8s var(--ease);
+}
+.post:hover {
+  --angle: 235deg;
+
+  box-shadow: var(--shadow-lift);
+}
+
+.post-author {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.post-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  flex: none;
+}
+.post-author-info {
+  display: flex;
+  flex-direction: column;
+}
+.post-name {
+  color: var(--color6);
+}
+.post-username {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.post-content {
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+.post-actions:not(:has(button)) {
+  display: none;
+}
+
+.post-actions .btn {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.7rem;
+  color: inherit;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
+}
+.post-actions .btn--ghost:hover {
+  background: var(--color1);
+  color: var(--color8);
+  border-color: var(--color1);
+}
+.post-actions .btn--danger:hover {
+  background: var(--color2);
+  color: var(--color8);
+  border-color: var(--color2);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
