@@ -9,6 +9,13 @@ const validateCreateUser = [
     .isLength({ min: 3 })
     .withMessage('Username must be at least 3 chars long')
     .custom(async (value) => {
+      // 1. Check for reserved/banned usernames (case-insensitive)
+      const reservedUsernames = ['admin', 'administrator', 'root', 'support'];
+      if (reservedUsernames.includes(value.toLowerCase())) {
+        throw new Error('This username is reserved and cannot be used');
+      }
+
+      // 2. Check if the username already exists in the database
       const [user] = await userQueries.getUserByUsername(value);
       if (user) {
         throw new Error('username already in use');
