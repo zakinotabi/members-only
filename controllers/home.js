@@ -3,7 +3,7 @@ const postQueries = require('../db/queries/post');
 
 async function renderHomePage(req, res) {
   // show err messages
-  const loginError = req.session.messages || [];
+  const loginError = req.session.messages || req.session.loginError || [];
   const signupError = req.session.signupError || [];
   const loginErrorMessage = loginError.length ? loginError[loginError.length - 1] : null;
   const signupErrorMessage = {};
@@ -19,11 +19,14 @@ async function renderHomePage(req, res) {
   // delete err messages when refresh
   delete req.session.messages;
   delete req.session.signupError;
+  delete req.session.loginError;
   delete req.session.activeModal;
 
   // het data for home page
   const allUsers = await userQueries.getAllUsers();
   const allPosts = await postQueries.getAllPosts();
+
+  req.session.fingerprint = req.headers['user-agent'];
 
   res.render('home', {
     allPosts,

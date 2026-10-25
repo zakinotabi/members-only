@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Sticky Notes</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' ry='5' fill='%232f9c95'/></svg>">    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' ry='5' fill='%23ef8354'/></svg>">    
     <link rel="stylesheet" href="/stylesheets/variables.css" />
     <link rel="stylesheet" href="/stylesheets/base.css" />
     <link rel="stylesheet" href="/stylesheets/navbar.css" />
@@ -44,9 +44,12 @@
                 <p class="post-content"><%= post.content %></p>
 
                 <footer class="post-actions">
+                  <div class="post-date"><%= post.latest_date %></div>
                   <% if (activeUser && activeUser.id == post.user_id || activeUser && activeUser.username == "admin") { %>
+                  <div> 
                     <button type="button" class="btn btn--ghost" popovertarget="edit-post-<%= post.id %>">Edit</button>
                     <button type="button" class="btn btn--danger" popovertarget="delete-post-<%= post.id %>">Delete</button>
+                  </div>
                   <% } %>
                 </footer>
               </article>

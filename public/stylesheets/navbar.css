@@ -31,6 +31,8 @@
   width: 20px;
   height: 20px;
   background: var(--color1);
+  box-shadow: 6px 6px 0px 0px var(--color2);
+  margin-bottom: 5px;
 }
 
 .navbar-user,
@@ -42,7 +44,7 @@
 }
 .navbar-user-info {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   gap: 5px;
 }
 .user-avatar {
@@ -50,6 +52,7 @@
   height: 30px;
   border-radius: 50%;
   flex: none;
+  align-self: flex-end;
 }
 .navbar-user-info > strong {
   font-size: 1.2rem;

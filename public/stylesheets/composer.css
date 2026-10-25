@@ -89,5 +89,18 @@
   text-underline-offset: 3px;
   font-weight: bold;
   cursor: pointer;
+  color: var(--color2);
+}
+.composer-signup-link {
+  margin-left: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: bold;
+  cursor: pointer;
   color: var(--color1);
 }
