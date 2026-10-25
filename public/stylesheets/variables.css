@@ -1,14 +1,14 @@
 /* 1. variables */
 
 :root {
-  --color1: #2f9c95;
-  --color2: #664147;
-  --color3: #bff8ce;
-  --color4: #40c9a2;
-  --color5: #2f9c95;
-  --color6: #2e1c19;
-  --color7: #e5f9e0;
-  --color8: #f8ffe5;
+  --color1: #ef8354;
+  --color2: #14213d;
+  --color3: #e5e5e5;
+  --color4: #4f5d75;
+  --color5: #ef8354;
+  --color6: #000000;
+  --color7: #fbf8f1;
+  --color8: #ffffff;
 
   --gap: 1rem;
   --line: 1px solid color-mix(in srgb, var(--color4) 55%, transparent);

@@ -45,6 +45,12 @@
   align-items: center;
   gap: 5px;
 }
+.user-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  flex: none;
+}
 .navbar-user-info > strong {
   font-size: 1.2rem;
 }
@@ -54,13 +60,13 @@
 
 .navbar-logout .btn {
   background: var(--color5);
-  color: var(--color3);
+  color: var(--color8);
   border-color: var(--color4);
 }
 .navbar-logout .btn:hover {
-  background: var(--color5);
-  color: var(--color7);
-  border-color: var(--color5);
+  background: var(--color2);
+  color: var(--color8);
+  border-color: var(--color2);
 }
 
 @media (max-width: 30rem) {

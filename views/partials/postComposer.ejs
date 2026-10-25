@@ -10,6 +10,9 @@
       <button type="submit" class="btn btn--primary composer-submit">Post</button>
     </form>
   <% } else { %>
-    <div class="composer-signin">make a new post<span class="composer-signin-link">sign-in</span></div>
+    <div class="composer-signin">
+      make a new post
+      <button type="button" class="composer-signin-link" command="show-modal" commandfor="login-dialog">sign in</button>
+    </div>
   <% } %>
 </section>

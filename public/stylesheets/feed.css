@@ -28,16 +28,20 @@
   flex-direction: column;
   gap: 0.8rem;
   padding: 1.15rem;
-  background-color: color-mix(in srgb, var(--color3) 35%, transparent);
+  /* background-color: color-mix(in srgb, var(--color8) 80%, transparent); */
   color: var(--fg);
-  transition:
-    box-shadow 0.35s var(--ease),
-    --angle 0.8s var(--ease);
+  border-radius: 8px;
+  box-shadow: 6px 6px 0px 0px #111111;
+
+  transition: box-shadow 0.35s var(--ease);
+
+  border: 2px solid #111111; /* Thick border is typically paired with it */
+  /* border-radius: 12px; */
+  background-color: #ffffff;
+  box-shadow: 6px 6px 0px 0px #4f5d75; /* X-offset | Y-offset | Blur | Spread */
 }
 .post:hover {
-  --angle: 235deg;
-
-  box-shadow: var(--shadow-lift);
+  box-shadow: 2px 3px 0px 0px #4f5d75;
 }
 
 .post-author {
@@ -85,15 +89,23 @@
   background: transparent;
   border: 1px solid color-mix(in srgb, currentColor 45%, transparent);
 }
+.post-actions .btn--ghost {
+  --btn-shadow-color: var(--color1);
+}
 .post-actions .btn--ghost:hover {
   background: var(--color1);
   color: var(--color8);
   border-color: var(--color1);
+  box-shadow: 0 8px 18px -10px var(--btn-shadow-color);
+}
+.post-actions .btn--danger {
+  --btn-shadow-color: var(--color2);
 }
 .post-actions .btn--danger:hover {
   background: var(--color2);
   color: var(--color8);
   border-color: var(--color2);
+  box-shadow: 0 8px 18px -10px var(--btn-shadow-color);
 }
 
 @keyframes rise {

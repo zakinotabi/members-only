@@ -68,6 +68,7 @@
   grid-area: 2 / 1 / 3 / 3;
   font-size: 0.75rem;
   opacity: 0.6;
+  color: var(--color4);
 }
 
 .composer-signin {
@@ -75,9 +76,18 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  color: var(--color2);
 }
 .composer-signin-link {
   margin-left: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
   text-decoration: underline;
   text-underline-offset: 3px;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--color1);
 }
