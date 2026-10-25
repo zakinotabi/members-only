@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS posts (
     id SERIAL PRIMARY KEY,
     content VARCHAR(280) NOT NULL,
-    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    latest_date TEXT
     );
 `;
 

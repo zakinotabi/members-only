@@ -79,8 +79,12 @@
   align-items: flex-end;
   gap: 0.5rem;
 }
-.post-actions:not(:has(button)) {
-  display: none;
+
+.post-actions-buttons-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
 }
 
 .post-actions .btn {

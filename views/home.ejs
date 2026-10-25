@@ -46,7 +46,7 @@
                 <footer class="post-actions">
                   <div class="post-date"><%= post.latest_date %></div>
                   <% if (activeUser && activeUser.id == post.user_id || activeUser && activeUser.username == "admin") { %>
-                  <div> 
+                  <div class="post-actions-buttons-wrap"> 
                     <button type="button" class="btn btn--ghost" popovertarget="edit-post-<%= post.id %>">Edit</button>
                     <button type="button" class="btn btn--danger" popovertarget="delete-post-<%= post.id %>">Delete</button>
                   </div>

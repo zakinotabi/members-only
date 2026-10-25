@@ -27,6 +27,7 @@
   margin-inline: auto;
 }
 .composer-form:focus-within {
+  border-color: transparent;
   box-shadow:
     0 0 0 1.5px var(--color1),
     var(--shadow-lift);
