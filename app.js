@@ -9,6 +9,9 @@ const postsRouter = require('./routes/postsRouter');
 const session = require('express-session');
 const passport = require('./config/passport');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+app.set('trust proxy', 1);
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
@@ -16,12 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   session({
-    secret: 'some-secret-key',
+    secret: process.env.SESSION_SECRET || 'some-secret-key',
     resave: false,
     saveUninitialized: false,
+    proxy: true,
     cookie: {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isProduction,
       sameSite: 'lax',
       maxAge: 1000 * 60 * 60 * 2,
     },
