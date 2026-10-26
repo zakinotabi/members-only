@@ -40,6 +40,7 @@ async function deletePost(postId, userId) {
   return rows[0] || null;
 }
 
+// we want admin to have his own queries it's logical and safer
 async function editPostAdmin(postId, postContent, date) {
   const updatePost = `
     UPDATE posts

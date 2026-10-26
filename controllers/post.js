@@ -2,7 +2,9 @@ const postQueries = require('../db/queries/post');
 
 async function setNewPost(req, res) {
   const { postContent } = req.body;
+  // it's better to get user directly from session
   const id = req.user.id;
+  //organizing the date and time form before saving it in db
   const date = new Date().toLocaleString('en-US', {
     month: 'long',
     day: 'numeric',
@@ -33,6 +35,9 @@ async function editPost(req, res) {
   if (!postId || !content) {
     return res.redirect('/');
   }
+  // check if it's admin then allow
+  // it's practical, it's not the safest I guess (we can have a role column in db)
+  // in passport js cookie are secretly saved and the connection is direct so it's safe (until)
   if (req.user.username == 'admin') {
     await postQueries.editPostAdmin(postId, content, date);
     return res.redirect('/');
@@ -49,6 +54,7 @@ async function deletePost(req, res) {
   if (!postId) {
     return res.redirect('/');
   }
+  //check if it's admin then allow
   if (req.user.username == 'admin') {
     await postQueries.deletePostAdmin(postId);
     return res.redirect('/');
@@ -63,12 +69,13 @@ async function deletePost(req, res) {
 // to avoid cookie duplication (it's not the best solution but a good practice)
 
 function ensureSecureSession(req, res, next) {
-  // 1. Check if Passport has an active authenticated session
+  // 1. Check if Passport has an active authenticated session (a good passport js method)
+  // (like asking passport did you allowed this user to get in)
   if (!req.isAuthenticated()) {
     return res.status(401).json({ error: 'Unauthorized. Please log in.' });
   }
 
-  // 2. Verify the session fingerprint
+  // 2. Verify the session fingerprint (compare session environments)
   const currentBrowser = req.headers['user-agent'];
   if (req.session.fingerprint !== currentBrowser) {
     // If the browser signature changed, destroy the session and log them out
